@@ -1,5 +1,7 @@
 const express = require("express")
-const Article = require("../../db")
+const Article = require("../../db").Article
+const Category = require("../../db").Category
+const { Op } = require("sequelize")
 
 const router = express.Router()
 
@@ -7,7 +9,10 @@ router
   .route("/")
   .get(async (req, res, next) => {
     try {
-      const data = await Article.findAll()
+      const data = await Article.findAll({
+        include: Category,
+        where: { headline: { [Op.iLike]: "%" + req.query.headline + "%" } },
+      })
       res.send(data)
     } catch (err) {
       console.log(err)
@@ -28,6 +33,8 @@ router
   .route("/:id")
   .get(async (req, res, next) => {
     try {
+      const data = await Article.findByPk(req.params.id, { include: Category })
+      res.send(data)
     } catch (err) {
       console.log(err)
       next(err)
@@ -35,6 +42,12 @@ router
   })
   .put(async (req, res, next) => {
     try {
+      const updatedData = await Article.update(req.body, {
+        returning: true,
+        plain: true,
+        where: { id: req.params.id },
+      })
+      res.send(updatedData[1])
     } catch (err) {
       console.log(err)
       next(err)
@@ -42,6 +55,13 @@ router
   })
   .delete(async (req, res, next) => {
     try {
+      Article.destroy({ where: { id: req.params.id } }).then((rowsDeleted) => {
+        if (rowsDeleted > 0) {
+          res.send("Deleted")
+        } else {
+          res.send("no match")
+        }
+      })
     } catch (err) {
       console.log(err)
       next(err)
