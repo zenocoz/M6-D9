@@ -13,5 +13,12 @@ module.exports = (sequelize, DataTypes) => {
     { timestamps: false }
   )
 
+  Author.associate = (models) => {
+    Author.belongsToMany(models.Article, {
+      through: { model: models.Story },
+      unique: false,
+      timestamps: false,
+    })
+  }
   return Author
 }

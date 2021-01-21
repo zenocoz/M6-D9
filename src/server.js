@@ -3,6 +3,9 @@ const express = require("express")
 const cors = require("cors")
 const db = require("./db")
 
+//Routes
+const articlesRouter = require("./services/articles")
+
 //---------------------Instances
 const server = express()
 
@@ -10,6 +13,7 @@ const server = express()
 
 server.use(cors())
 server.use(express.json())
+server.use("/articles", articlesRouter)
 
 //---------------------Listen
 db.sequelize.sync({ force: true }).then((result) => {

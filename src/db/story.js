@@ -10,9 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     { timestamps: false }
   )
-  Story.associate = (models) => {
-    Story.belongsTo(models.Article)
-    Story.belongsTo(models.Author)
-  }
+  //   Story.associate = (models) => {
+  //     Story.belongsTo(models.Article)
+  //     Story.belongsTo(models.Author)
+  //   }
+
   return Story
 }

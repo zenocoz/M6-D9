@@ -12,5 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     { timestamps: false }
   )
 
+  Review.associate = (models) => {
+    Review.belongsTo(models.Article)
+  }
+
   return Review
 }

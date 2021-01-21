@@ -17,7 +17,13 @@ module.exports = (sequelize, DataTypes) => {
   )
 
   Article.associate = (models) => {
+    Article.hasMany(models.Review)
     Article.belongsTo(models.Category)
+    Article.belongsToMany(models.Author, {
+      through: { model: models.Story },
+      unique: false,
+      timestamps: false,
+    })
   }
 
   return Article
