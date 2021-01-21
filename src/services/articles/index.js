@@ -10,8 +10,17 @@ router
   .get(async (req, res, next) => {
     try {
       const data = await Article.findAll({
-        include: Category,
-        where: { headline: { [Op.iLike]: "%" + req.query.headline + "%" } },
+        include: {
+          model: Category,
+          where: req.query.category
+            ? { c_name: { [Op.iLike]: "%" + req.query.category + "%" } }
+            : {},
+        },
+        where: req.query.headline
+          ? { headline: { [Op.iLike]: "%" + req.query.headline + "%" } }
+          : {},
+        offset: pareseInt(req.query.offset) | 0,
+        limit: pareseInt(req.query.limit) | 10,
       })
       res.send(data)
     } catch (err) {
