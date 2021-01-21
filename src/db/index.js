@@ -3,6 +3,7 @@ const Article = require("./article.js")
 const Author = require("./author.js")
 const Category = require("./category.js")
 const Review = require("./review.js")
+const Story = require("./story.js")
 
 const sequelize = new Sequelize(
   process.env.PGDATABASE,
@@ -12,10 +13,10 @@ const sequelize = new Sequelize(
 )
 
 const models = {
-  Artice: Article(sequelize, DataTypes),
+  Article: Article(sequelize, DataTypes),
   Category: Category(sequelize, DataTypes),
   Author: Author(sequelize, DataTypes),
-
+  Story: Story(sequelize, DataTypes),
   Review: Review(sequelize, DataTypes),
 }
 

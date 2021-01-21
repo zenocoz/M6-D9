@@ -1,20 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-  const Category = sequelize.define(
-    "category",
+  const Story = sequelize.define(
+    "story",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      c_name: { type: DataTypes.STRING, allowNull: false },
     },
     { timestamps: false }
   )
-
-  Category.associate = (models) => {
-    Category.hasMany(models.Article)
+  Story.associate = (models) => {
+    Story.belongsTo(models.Article)
+    Story.belongsTo(models.Author)
   }
-
-  return Category
+  return Story
 }
