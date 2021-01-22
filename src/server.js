@@ -5,6 +5,7 @@ const db = require("./db")
 
 //Routes
 const articlesRouter = require("./services/articles")
+const storiesRouter = require("./services/stories")
 
 //---------------------Instances
 const server = express()
@@ -14,6 +15,7 @@ const server = express()
 server.use(cors())
 server.use(express.json())
 server.use("/articles", articlesRouter)
+server.use("/stories", storiesRouter)
 
 //---------------------Listen
 db.sequelize.sync({ force: false }).then((result) => {

@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: false,
       timestamps: false,
     })
+    Author.hasMany(models.Story)
   }
   return Author
 }
