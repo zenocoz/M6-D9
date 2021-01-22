@@ -1,6 +1,5 @@
 const express = require("express")
 const Article = require("../../db").Article
-const Category = require("../../db").Category
 const Story = require("../../db").Story
 const Author = require("../../db").Author
 const { Op } = require("sequelize")

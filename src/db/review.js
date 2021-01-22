@@ -7,13 +7,14 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      text: { type: DataTypes.STRING, allowNull: false },
+      text: { type: DataTypes.STRING, allowNull: true },
     },
-    { timestamps: false }
+    { timestamps: true }
   )
 
   Review.associate = (models) => {
     Review.belongsTo(models.Article)
+    Review.belongsTo(models.Author)
   }
 
   return Review
